@@ -1,0 +1,29 @@
+// frontend/webpack.config.js
+const path = require("path");
+
+module.exports = {
+  entry: path.resolve(__dirname, "src", "index.jsx"),
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "../backend/public/static"),
+    publicPath: "/static/",
+    clean: true,
+  },
+  resolve: { extensions: [".js", ".jsx", ".json"] },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
+        },
+      },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+    ],
+  },
+  devtool: "source-map",
+};
